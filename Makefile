@@ -9,3 +9,12 @@ stop :
 
 start :
 		docker-compose -f srcs/docker-compose.yml start
+
+ps :
+		docker-compose -f srcs/docker-compose.yml ps --all
+
+images :
+		docker-compose -f srcs/docker-compose.yml images
+
+exec nginx:
+		docker exec -it nginx /bin/sh
