@@ -2,7 +2,11 @@ all :
 		docker-compose -f srcs/docker-compose.yml up --build
 
 down :
-		docker-compose -f srcs/docker-compose.yml down -v --rmi all
+		docker-compose -f srcs/docker-compose.yml down -v --rmi all --remove-orphans
+
+re :
+		docker-compose -f srcs/docker-compose.yml down -v --rmi all --remove-orphans
+		docker-compose -f srcs/docker-compose.yml up --build
 
 stop :
 		docker-compose -f srcs/docker-compose.yml stop
@@ -16,5 +20,6 @@ ps :
 images :
 		docker-compose -f srcs/docker-compose.yml images
 
-exec nginx:
-		docker exec -it nginx /bin/sh
+exec :
+		docker exec -it $(C) /bin/bash || true
+
