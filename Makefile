@@ -23,3 +23,9 @@ images :
 exec :
 		docker exec -it $(C) /bin/bash || true
 
+logs :
+		docker logs $(C)
+
+prune :
+		docker system prune -af
+

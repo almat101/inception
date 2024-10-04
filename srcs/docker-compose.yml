@@ -3,7 +3,7 @@ version: '3.8'  # Specify the version of the Compose file format
 services:
   nginx:
     container_name: nginx
-    image : nginx:debian
+    # image : nginx:debian
     build:
       context: requirements/nginx  # Use the current directory as the build context
       dockerfile: Dockerfile  # Use the Dockerfile in the current directory
@@ -14,11 +14,22 @@ services:
 
   mariadb:
     container_name: mariadb
-    image: mariadb:debian
+    # image: mariadb:debian
     build:
       context: requirements/mariadb
       dockerfile: Dockerfile
     expose:
       - "3306" # Expose port 3306 this allows containers to communicate with each other
+    env_file: ".env"
+    restart: always
+
+  wordpress:
+    container_name: wordpress
+    # image: wordpress:php7.4-fpm
+    build:
+      context: requirements/wordpress
+      dockerfile: Dockerfile
+    expose:
+      - "9000" # Expose port 9000 this allows containers to communicate with each other
     env_file: ".env"
     restart: always

@@ -25,4 +25,7 @@ RUN chmod +x etc/nginx/entrypoint.sh
 # in this case is useless because we use ports in the docker-compose to map the ports 443 of the container to the 443 of the host machine
 # EXPOSE 443
 
+#give the right permissions to the html folder
+RUN chmod 755 /var/www/html
+
 CMD ["etc/nginx/entrypoint.sh"]
