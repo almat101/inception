@@ -3,33 +3,57 @@ version: '3.8'  # Specify the version of the Compose file format
 services:
   nginx:
     container_name: nginx
-    # image : nginx:debian
     build:
       context: requirements/nginx  # Use the current directory as the build context
       dockerfile: Dockerfile  # Use the Dockerfile in the current directory
+    image : nginx
     ports:
       - "443:443" # Map port 443 on the host to port 443 in the container
     env_file: ".env" # Load environment variables from a file
     restart: always  # Restart the container if it stops
+    networks:
+      - inception  # Connect the container to the inception network
+    volumes :
+      - wordpress:/var/www/html  # Mount the wordpress volume to the /var/www/html directory in the container
+    depends_on:
+      - wordpress
 
   mariadb:
     container_name: mariadb
-    # image: mariadb:debian
     build:
       context: requirements/mariadb
       dockerfile: Dockerfile
+    image: mariadb
     expose:
       - "3306" # Expose port 3306 this allows containers to communicate with each other
     env_file: ".env"
     restart: always
+    networks:
+      - inception
+    volumes:
+      - mariadb:/var/lib/mysql
 
   wordpress:
     container_name: wordpress
-    # image: wordpress:php7.4-fpm
     build:
       context: requirements/wordpress
       dockerfile: Dockerfile
+    image: wordpress
     expose:
       - "9000" # Expose port 9000 this allows containers to communicate with each other
     env_file: ".env"
     restart: always
+    networks:
+      - inception
+    volumes:
+      - wordpress:/var/www/html
+    depends_on:
+      - mariadb
+
+networks:
+  inception:
+    driver: bridge
+
+volumes:
+  wordpress:
+  mariadb:

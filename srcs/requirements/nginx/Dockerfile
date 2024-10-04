@@ -16,7 +16,9 @@ RUN mkdir -p /etc/nginx/ssl
 
 COPY conf/nginx.conf /etc/nginx/nginx.conf
 
-# RUN chown -R www-data:www-data /var/www/html idk if this is needed
+#this is crucial to avoid 403 on ngnix
+RUN chown -R www-data:www-data /var/www/html
+
 COPY tools/entrypoint.sh etc/nginx/entrypoint.sh
 
 RUN chmod +x etc/nginx/entrypoint.sh
