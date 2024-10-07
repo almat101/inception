@@ -1,17 +1,19 @@
 #!bin/bash
 
-sleep 20
+sleep 15
 
 cd /var/www/html
 
 # Create a new wp-config.php file via wp-cli
+echo "Create a new wp-config.php file via wp-cli"
 wp config create	--allow-root \
-					--dbname=$MARIA_DB \
+					--dbname=$MARIA_DB_NAME \
 					--dbuser=$MARIA_USER \
 					--dbpass=$MARIA_PASSWORD \
 					--dbhost=mariadb:3306 --path='/var/www/html'
 
 # Install wordpress via wp-cli(created also the admin user )
+echo "Install wordpress via wp-cli(created also the admin user)"
 wp core install	--url=$DOMAIN_NAME \
 				--title=$WP_TITLE \
 				--admin_user=$WP_ROOT_USER \
@@ -21,6 +23,7 @@ wp core install	--url=$DOMAIN_NAME \
 				--path='/var/www/html'
 
 # Create a new user as an author user (second user)
+echo "Create a new user as an author user (second user)"
 wp user create	$WP_USER \
 				$WP_EMAIL \
 				--role=author \
@@ -29,4 +32,5 @@ wp user create	$WP_USER \
 				--path='/var/www/html'
 
 #execute the cgi
+echo "Execute the cgi"
 /usr/sbin/php-fpm7.4 -F

@@ -10,7 +10,7 @@ services:
     ports:
       - "443:443" # Map port 443 on the host to port 443 in the container
     env_file: ".env" # Load environment variables from a file
-    restart: always  # Restart the container if it stops
+    restart: on-failure # Restart the container if it exits with a non-zero code
     networks:
       - inception  # Connect the container to the inception network
     volumes :
@@ -27,7 +27,7 @@ services:
     expose:
       - "3306" # Expose port 3306 this allows containers to communicate with each other
     env_file: ".env"
-    restart: always
+    restart: unless-stopped # Restart the container unless it was explicitly stopped
     networks:
       - inception
     volumes:
@@ -42,7 +42,7 @@ services:
     expose:
       - "9000" # Expose port 9000 this allows containers to communicate with each other
     env_file: ".env"
-    restart: always
+    restart: on-failure
     networks:
       - inception
     volumes:
@@ -56,4 +56,14 @@ networks:
 
 volumes:
   wordpress:
+    driver : local  # Use the local volume driver
+    driver_opts:
+      type: none
+      device: /home/${USER}/data/wordpress  # Mount the volume to the /home/${user}/data/wordpress directory
+      o: bind
   mariadb:
+    driver : local
+    driver_opts:
+      type: none
+      device: /home/${USER}/data/mariadb
+      o: bind

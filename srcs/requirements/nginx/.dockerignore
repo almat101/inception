@@ -1,0 +1,22 @@
+# Ignore temporary files
+*.tmp
+*.swp
+
+# Ignore log files
+*.log
+
+# Ignore version control directories
+.git
+.gitignore
+
+# Ignore environment files
+.env
+
+# Ignore build artifacts
+build
+dist
+
+# Ignore any other unnecessary files or directories
+tmp
+.cache
+coverage
