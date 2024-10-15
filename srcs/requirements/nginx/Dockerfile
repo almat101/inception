@@ -1,9 +1,3 @@
-# FROM alpine:3.19
-
-# RUN apk update && \
-# 	apk upgrade && \
-# 	apk add --no-cache nginx sudo vim openssl
-
 FROM debian:bullseye
 
 RUN apt-get update && \

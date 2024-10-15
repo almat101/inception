@@ -1,5 +1,3 @@
-version: '3.8'  # Specify the version of the Compose file format
-
 services:
   nginx:
     container_name: nginx
