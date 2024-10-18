@@ -13,15 +13,11 @@ COPY conf/nginx.conf /etc/nginx/nginx.conf
 #this is crucial to avoid 403 on ngnix
 RUN chown -R www-data:www-data /var/www/html
 
-COPY tools/entrypoint.sh etc/nginx/entrypoint.sh
+COPY tools/script_n.sh etc/nginx/script_n.sh
 
-RUN chmod +x etc/nginx/entrypoint.sh
-
-# expose port 443 to other containers in the same docker network
-# in this case is useless because we use ports in the docker-compose to map the ports 443 of the container to the 443 of the host machine
-# EXPOSE 443
+RUN chmod +x etc/nginx/script_n.sh
 
 #give the right permissions to the html folder
 RUN chmod 755 /var/www/html
 
-CMD ["etc/nginx/entrypoint.sh"]
+CMD ["etc/nginx/script_n.sh"]

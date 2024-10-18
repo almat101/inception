@@ -57,11 +57,11 @@ volumes:
     driver : local  # Use the local volume driver
     driver_opts:
       type: none
-      device: /home/${USER}/data/wordpress  # Mount the volume to the /home/${user}/data/wordpress directory
+      device: /home/amatta/data/wordpress  # Mount the volume to the /home/${user}/data/wordpress directory
       o: bind
   mariadb:
     driver : local
     driver_opts:
       type: none
-      device: /home/${USER}/data/mariadb
+      device: /home/amatta/data/mariadb
       o: bind
