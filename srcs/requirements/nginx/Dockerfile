@@ -1,8 +1,8 @@
 FROM debian:bullseye
 
-RUN apt-get update && \
-	apt-get upgrade -y && \
-	apt-get install -y nginx sudo vim openssl
+RUN apt-get update
+RUN apt-get upgrade -y
+RUN apt-get install -y nginx sudo vim openssl
 
 RUN rm -f /etc/nginx/nginx.conf
 
