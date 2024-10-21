@@ -5,7 +5,7 @@ sleep 20
 cd /var/www/html
 
 # Create a new wp-config.php file via wp-cli
-if test -f "/var/www/html/wp-config.php"; then
+if ! test -f "/var/www/html/wp-config.php"; then
 	echo "Create a new wp-config.php file via wp-cli"
 	wp config create	--allow-root \
 					--dbname=$MARIA_DB_NAME \
@@ -23,15 +23,16 @@ if test -f "/var/www/html/wp-config.php"; then
 				--skip-email --allow-root \
 				--path='/var/www/html'
 
-# Create a new user as an author user (second user)
-echo "Create a new user as an author user (second user)"
-wp user create	$WP_USER \
+	# Create a new user as an author user (second user)
+	echo "Create a new user as an author user (second user)"
+	wp user create	$WP_USER \
 				$WP_EMAIL \
 				--role=author \
 				--user_pass=$WP_PASSWORD \
 				--allow-root \
 				--path='/var/www/html'
-
+else
+	echo "wp-config.php already exist!"
 fi
 #execute the cgi
 echo "Execute the cgi"
