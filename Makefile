@@ -1,13 +1,12 @@
 all :
 		sudo docker compose -f srcs/docker-compose.yml up --build
-
 down :
 		sudo docker compose -f srcs/docker-compose.yml down -v --rmi all --remove-orphans
 
 down-clean-v-data :
 		sudo docker compose -f srcs/docker-compose.yml down -v --rmi all --remove-orphans
-		sudo rm -rf /home/${USER}/data/wordpress/*
-		sudo rm -rf /home/${USER}/data/mariadb/*
+		sudo rm -rf /home/amatta/data/wordpress/*
+		sudo rm -rf /home/amatta/data/mariadb/*
 
 re :
 		sudo docker compose -f srcs/docker-compose.yml down -v --rmi all --remove-orphans
