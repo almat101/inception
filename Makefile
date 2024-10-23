@@ -43,5 +43,5 @@ list-all :
 list-all-id :
 		sudo docker ps -a -q
 
-
-
+redis-cli :
+		sudo docker exec -it redis redis-cli

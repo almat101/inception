@@ -6,8 +6,8 @@ RUN apt-get install -y mariadb-server
 
 COPY conf/50-server.cnf	/etc/mysql/mariadb.conf.d/50-server.cnf
 
-COPY tools/maria.sh /etc/mysql/maria.sh
+COPY tools/maria.sh /usr/local/bin/maria.sh
 
-RUN chmod +x /etc/mysql/maria.sh
+RUN chmod +x /usr/local/bin/maria.sh
 
-CMD ["/etc/mysql/maria.sh"]
+CMD ["/usr/local/bin/maria.sh"]
