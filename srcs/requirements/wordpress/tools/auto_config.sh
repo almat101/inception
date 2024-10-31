@@ -60,10 +60,20 @@ if ! test -f "/var/www/html/wp-config.php"; then
 	wp config set WP_REDIS_MAXTTL "86400" --allow-root
 	# 24 hours
 
-	#gives the right permissions to the files and directory for wordpress,nginx and redis 
+	#gives the right permissions to the files and directory for wordpress,nginx and redis
 	find /var/www/html -type d -exec chmod 755 {} \;
 	find /var/www/html -type f -exec chmod 644 {} \;
 	chown -R www-data:www-data /var/www/html
+
+	# Create the uploads directory for the FTP user
+	echo "Create the uploads directory for the FTP user"
+	# echo $FTP_USER
+	id -u $FTP_USER &>/dev/null || useradd -m $FTP_USER
+	mkdir -p /var/www/html/uploads
+	chown -R $FTP_USER:www-data /var/www/html/uploads
+	chmod 775 /var/www/html/uploads
+
+	echo "wp-config.php created!"
 else
 	echo "wp-config.php already exist!"
 fi
