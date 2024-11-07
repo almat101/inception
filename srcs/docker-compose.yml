@@ -81,6 +81,15 @@ services:
     networks:
       - inception
 
+  hugo:
+    container_name: hugo
+    build:
+      context: requirements/bonus/hugo
+      dockerfile: Dockerfile
+    restart: always
+    networks:
+      - inception
+
 networks:
   inception:
     driver: bridge

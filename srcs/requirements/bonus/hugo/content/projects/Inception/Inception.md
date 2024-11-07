@@ -1,4 +1,15 @@
-# Inception
+---
+title: "Inception"
+description: "Multiple docker containers"
+dateString: oct 2024 - nov 2024
+draft: false
+tags: ["docker", "docker compose", "redis", "mariadb", "wordpress", "nginx", "ftp", "hugo"]
+showToc: false
+weight: 202
+cover:
+    image: "https://miro.medium.com/v2/resize:fit:1400/format:webp/1*tjTUpEi8h53-DMkweX2TDQ.png"
+---
+### 🔗 [Subject]()
 
 This project aims to broaden your knowledge of system administration by using Docker. You will virtualize several Docker images, creating them in your new personal virtual machine.
 
@@ -71,6 +82,3 @@ WP_EMAIL
 WP_ROOT_USER
 WP_ROOT_PASSWORD
 WP_ROOT_EMAIL
-FTP_USER
-FTP_PASSWORD
-```
