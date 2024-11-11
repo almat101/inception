@@ -7,6 +7,7 @@ down-clean-v-data :
 		sudo docker compose -f srcs/docker-compose.yml down -v --rmi all --remove-orphans
 		sudo rm -rf /home/ale/data/wordpress/*
 		sudo rm -rf /home/ale/data/mariadb/*
+		sudo rm -rf /home/ale/data/adminer/*
 #		sudo rm -rf /home/amatta/data/wordpress/*
 #		sudo rm -rf /home/amatta/data/mariadb/*
 

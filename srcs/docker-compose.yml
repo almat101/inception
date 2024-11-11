@@ -13,8 +13,10 @@ services:
       - inception  # Connect the container to the inception network
     volumes :
       - wordpress:/var/www/html  # Mount the wordpress volume to the /var/www/html directory in the container
+      - adminer:/var/www/adminer  # Mount the adminer volume to the /var/www/html directory in the container
     depends_on:
       - wordpress
+      - adminer
 
   mariadb:
     container_name: mariadb
@@ -90,6 +92,19 @@ services:
     networks:
       - inception
 
+  adminer:
+    container_name: adminer
+    build:
+      context: requirements/bonus/adminer
+      dockerfile: Dockerfile
+    restart: always
+    expose:
+      - "9001"
+    networks:
+      - inception
+    volumes:
+      - adminer:/var/www/adminer
+
 networks:
   inception:
     driver: bridge
@@ -108,4 +123,11 @@ volumes:
       type: none
       device: /home/ale/data/mariadb
       # device: /home/amatta/data/mariadb
+      o: bind
+  adminer:
+    driver : local
+    driver_opts:
+      type: none
+      device: /home/ale/data/adminer
+      # device: /home/amatta/data/adminer
       o: bind

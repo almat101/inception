@@ -29,10 +29,6 @@ menu:
     #   name: Tags
     #   url: /tags
     #   weight: 60
-    # - identifier: notes
-    #   name: Notes
-    #   url: https://notes.arkalim.org
-    #   weight: 70
 
 params:
   showToc: true
@@ -75,9 +71,3 @@ outputs:
     - HTML
     - RSS
     - JSON # necessary for search
-
-# # allow HTML in MD
-# markup:
-#   goldmark:
-#     renderer:
-#       unsafe: true
