@@ -1,9 +1,9 @@
 services:
   nginx:
-    container_name: nginx
     build:
       context: requirements/nginx  # Use the current directory as the build context
       dockerfile: Dockerfile  # Use the Dockerfile in the current directory
+    container_name: nginx
     image : nginx
     ports:
       - "443:443" # Map port 443 on the host to port 443 in the container
@@ -19,10 +19,10 @@ services:
       - adminer
 
   mariadb:
-    container_name: mariadb
     build:
       context: requirements/mariadb
       dockerfile: Dockerfile
+    container_name: mariadb
     image: mariadb
     expose:
       - "3306" # Expose port 3306 this allows containers to communicate with each other
@@ -34,10 +34,10 @@ services:
       - mariadb:/var/lib/mysql
 
   wordpress:
-    container_name: wordpress
     build:
       context: requirements/wordpress
       dockerfile: Dockerfile
+    container_name: wordpress
     image: wordpress
     expose:
       - "9000" # Expose port 9000 this allows containers to communicate with each other
@@ -52,10 +52,10 @@ services:
       - redis
 
   redis:
-    container_name: redis
     build:
       context: requirements/bonus/redis
       dockerfile: Dockerfile
+    container_name: redis
     image: redis
     expose:
       - "6379"
@@ -65,10 +65,10 @@ services:
     networks:
       - inception
   ftp:
-    container_name: ftp
     build:
       context: requirements/bonus/ftp
       dockerfile: Dockerfile
+    container_name: ftp
     image: ftp
     env_file: ".env"
     depends_on:
@@ -84,19 +84,21 @@ services:
       - inception
 
   hugo:
-    container_name: hugo
     build:
       context: requirements/bonus/hugo
       dockerfile: Dockerfile
+    container_name: hugo
+    image: hugo
     restart: always
     networks:
       - inception
 
   adminer:
-    container_name: adminer
     build:
       context: requirements/bonus/adminer
       dockerfile: Dockerfile
+    container_name: adminer
+    image: adminer
     restart: always
     expose:
       - "9001"
@@ -104,6 +106,42 @@ services:
       - inception
     volumes:
       - adminer:/var/www/adminer
+
+  prometheus:
+    build:
+      context: requirements/bonus/prometheus
+      dockerfile: Dockerfile
+    container_name: prometheus
+    image: prometheus
+    restart: always
+    ports:
+      - "9090:9090"
+    networks:
+      - inception
+
+  node-exporter:
+    build:
+      context: requirements/bonus/node-exporter
+      dockerfile: Dockerfile
+    container_name: node-exporter
+    image: node-exporter
+    restart: always
+    ports:
+      - "9100:9100"
+    networks:
+      - inception
+
+  grafana:
+    build:
+      context: requirements/bonus/grafana
+      dockerfile: Dockerfile
+    container_name: grafana
+    image: grafana
+    restart: always
+    ports:
+      - "3000:3000"
+    networks:
+      - inception
 
 networks:
   inception:

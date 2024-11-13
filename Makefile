@@ -1,4 +1,6 @@
-all :
+all :	create-dirs up
+
+up :
 		sudo docker compose -f srcs/docker-compose.yml up --build
 down :
 		sudo docker compose -f srcs/docker-compose.yml down -v --rmi all --remove-orphans
@@ -10,6 +12,7 @@ down-clean-v-data :
 		sudo rm -rf /home/ale/data/adminer/*
 #		sudo rm -rf /home/amatta/data/wordpress/*
 #		sudo rm -rf /home/amatta/data/mariadb/*
+#	    sudo rm -rf /home/amatta/data/adminer/*
 
 re :
 		sudo docker compose -f srcs/docker-compose.yml down -v --rmi all --remove-orphans
@@ -47,3 +50,9 @@ list-all-id :
 
 redis-cli :
 		sudo docker exec -it redis redis-cli
+
+create-dirs:
+		@echo "Creating directories"
+		mkdir -p /home/ale/data/wordpress
+		mkdir -p /home/ale/data/mariadb
+		mkdir -p /home/ale/data/adminer
