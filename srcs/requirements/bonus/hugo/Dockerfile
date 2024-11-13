@@ -31,10 +31,12 @@ COPY static/ /portfolio/static
 COPY content/ /portfolio/content
 
 # Build the site to generate the public directory
-RUN hugo -D --baseURL https://localhost/portfolio/
+RUN hugo -D --baseURL https://amatta.42.fr/portfolio/
+#RUN hugo -D --baseURL https://localhost/portfolio/
 
 # Expose the port for the Hugo server
 EXPOSE 1313
 
 # Command to serve the site at the base URL wihout appending the port 1313
-CMD ["hugo", "server", "--bind", "0.0.0.0", "--baseURL", "https://localhost/portfolio", "--appendPort=false"]
+CMD ["hugo", "server", "--bind", "0.0.0.0", "--baseURL", "https://amatta.42.fr/portfolio", "--appendPort=false"]
+#CMD ["hugo", "server", "--bind", "0.0.0.0", "--baseURL", "https://localhost/portfolio", "--appendPort=false"]
