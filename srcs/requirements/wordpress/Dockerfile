@@ -6,9 +6,9 @@ RUN apt-get install -y wget vim php7.4 php7.4-fpm php7.4-mysql mariadb-client cu
 
 
 # Download and extract WordPress in var/www/html
-RUN wget https://wordpress.org/wordpress-6.6.2.tar.gz -P /var/www
-RUN tar -xzf /var/www/wordpress-6.6.2.tar.gz -C /var/www
-RUN rm /var/www/wordpress-6.6.2.tar.gz
+RUN wget https://wordpress.org/wordpress-6.7.tar.gz -P /var/www
+RUN tar -xzf /var/www/wordpress-6.7.tar.gz -C /var/www
+RUN rm /var/www/wordpress-6.7.tar.gz
 RUN mv /var/www/wordpress /var/www/html
 
 # Copy the configuration files of php-fpm
