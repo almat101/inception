@@ -47,9 +47,38 @@ Inception involves setting up and configuring multiple services using Docker con
 - **Ports**: Exposes port 1313 for the Hugo server.
 - **Build Context**: `requirements/bonus/hugo`
 
+### Adminer
+- **Description**: A lightweight database management tool.
+- **Configuration**: Accessed via the Nginx container for security.
+- **Ports**: Exposes port 9001 for internal access.
+- **Build Context**: requirements/bonus/adminer
+
+### Prometheus
+- **Description**: A monitoring tool for collecting and analyzing metrics from services and containers.
+- **Configuration**: Uses a custom configuration file to monitor specific metrics.
+- **Ports**: Exposes port 9090 for accessing the Prometheus web interface.
+- **Build Context**: requirements/bonus/prometheus
+
+### Node Exporter
+- **Description**: An exporter for Prometheus to collect hardware and OS metrics from the host machine.
+- **Ports**: Exposes port 9100 for internal communication with Prometheus.
+- **Build Context**: requirements/bonus/node-exporter
+
+### Grafana
+- **Description**: A visualization tool to create dashboards using metrics collected by Prometheus.
+- **Ports**: Exposes port 3000 for accessing the Grafana web interface.
+- **Build Context**: requirements/bonus/grafana
+
 ## Docker Compose Configuration
 
 The project uses Docker Compose to manage the containers. The configuration file is located at `srcs/docker-compose.yml`. It defines the services, networks, and volumes required for the project.
+
+### Networks
+- **inception**: A bridge network that connects all the containers.
+### Volumes 
+- **wordpress**: Mounted at /var/www/html for WordPress data.
+- **mariadb**: Mounted at /var/lib/mysql for MariaDB data.
+- **adminer**: Mounted at /var/www/adminer for Adminer files.
 
 ## Environment Variables
 
@@ -74,3 +103,5 @@ WP_ROOT_EMAIL
 FTP_USER
 FTP_PASSWORD
 ```
+
+
