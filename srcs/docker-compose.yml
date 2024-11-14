@@ -4,7 +4,7 @@ services:
       context: requirements/nginx  # Use the current directory as the build context
       dockerfile: Dockerfile  # Use the Dockerfile in the current directory
     container_name: nginx
-    image : nginx
+    image : nginx:1.0
     ports:
       - "443:443" # Map port 443 on the host to port 443 in the container
     env_file: ".env" # Load environment variables from a file
@@ -23,7 +23,7 @@ services:
       context: requirements/mariadb
       dockerfile: Dockerfile
     container_name: mariadb
-    image: mariadb
+    image: mariadb:1.0
     expose:
       - "3306" # Expose port 3306 this allows containers to communicate with each other
     env_file: ".env"
@@ -38,7 +38,7 @@ services:
       context: requirements/wordpress
       dockerfile: Dockerfile
     container_name: wordpress
-    image: wordpress
+    image: wordpress:1.0
     expose:
       - "9000" # Expose port 9000 this allows containers to communicate with each other
     env_file: ".env"
@@ -56,7 +56,7 @@ services:
       context: requirements/bonus/redis
       dockerfile: Dockerfile
     container_name: redis
-    image: redis
+    image: redis:1.0
     expose:
       - "6379"
     restart: on-failure
@@ -69,7 +69,7 @@ services:
       context: requirements/bonus/ftp
       dockerfile: Dockerfile
     container_name: ftp
-    image: ftp
+    image: ftp:1.0
     env_file: ".env"
     depends_on:
       - wordpress
@@ -88,7 +88,7 @@ services:
       context: requirements/bonus/hugo
       dockerfile: Dockerfile
     container_name: hugo
-    image: hugo
+    image: hugo:1.0
     restart: always
     networks:
       - inception
@@ -98,7 +98,7 @@ services:
       context: requirements/bonus/adminer
       dockerfile: Dockerfile
     container_name: adminer
-    image: adminer
+    image: adminer:1.0
     restart: always
     expose:
       - "9001"
@@ -112,7 +112,7 @@ services:
       context: requirements/bonus/prometheus
       dockerfile: Dockerfile
     container_name: prometheus
-    image: prometheus
+    image: prometheus:1.0
     restart: always
     ports:
       - "9090:9090"
@@ -124,7 +124,7 @@ services:
       context: requirements/bonus/node-exporter
       dockerfile: Dockerfile
     container_name: node-exporter
-    image: node-exporter
+    image: node-exporter:1.0
     restart: always
     ports:
       - "9100:9100"
@@ -136,7 +136,7 @@ services:
       context: requirements/bonus/grafana
       dockerfile: Dockerfile
     container_name: grafana
-    image: grafana
+    image: grafana:1.0
     restart: always
     ports:
       - "3000:3000"

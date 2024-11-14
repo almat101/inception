@@ -1,4 +1,4 @@
-baseURL: "http://localhost:1313"
+baseURL: "http://amatta.42.fr:1313"
 languageCode: en-us
 title: Portfolio
 theme: PaperMod
