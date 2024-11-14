@@ -113,11 +113,12 @@ FTP_PASSWORD
     ```
 
 4. Access the services via the following URLs:
-    - **WordPress** : https://DOMAIN_NAME
-    - **Hugo** : https://DOMAIN_NAME/portfolio
-    - **Adminer** : https://DOMAIN_NAME/adminer
-    - **Grafana** : https://domain-name/grafana
-	
+    - **WordPress** : https://`DOMAIN_NAME`
+    - **Hugo** : https://`DOMAIN_NAME`/portfolio
+    - **Adminer** : https://`DOMAIN_NAME`/adminer
+    - **Grafana** : https://`DOMAIN_NAME`/grafana
+
+
 ### Adminer Configuration
 
 To connect Adminer to your MariaDB database, use the following settings:
@@ -155,3 +156,12 @@ When you first access Grafana, you will be prompted to log in:
 
 The imported dashboard provides detailed insights into the performance of your host machine using metrics collected by the **Node Exporter** and visualized by Grafana.
 
+### Local Testing
+
+If you want to run the project locally on your PC, set `DOMAIN_NAME=localhost` in your `.env` file.
+
+> **Note**: If you use a different domain name, you will need to update your local `/etc/hosts` file to map the domain to `127.0.0.1`. This file requires **sudo permissions** to edit. For example:
+
+```plaintext
+127.0.0.1   your-domain-name
+```
