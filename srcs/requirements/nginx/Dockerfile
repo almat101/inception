@@ -4,8 +4,9 @@ RUN apt-get update
 RUN apt-get upgrade -y
 RUN apt-get install -y nginx sudo vim openssl
 
-RUN rm -f /etc/nginx/nginx.conf
-
+RUN rm -rf /etc/nginx/nginx.conf
+RUN rm -rf /etc/nginx/sites-enabled/*
+RUN rm -rf /etc/nginx/sites-available/*
 RUN mkdir -p /etc/nginx/ssl
 
 COPY conf/nginx.conf /etc/nginx/nginx.conf

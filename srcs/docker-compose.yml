@@ -156,17 +156,17 @@ volumes:
     driver : local  # Use the local volume driver
     driver_opts:
       type: none
-      device: /home/ale/data/wordpress
+      device: /home/amatta/data/wordpress
       o: bind
   mariadb:
     driver : local
     driver_opts:
       type: none
-      device: /home/ale/data/mariadb
+      device: /home/amatta/data/mariadb
       o: bind
   adminer:
     driver : local
     driver_opts:
       type: none
-      device: /home/ale/data/adminer
+      device: /home/amatta/data/adminer
       o: bind
