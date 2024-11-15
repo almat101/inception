@@ -7,12 +7,9 @@ down :
 
 down-clean-v-data :
 		sudo docker compose -f srcs/docker-compose.yml down -v --rmi all --remove-orphans
-#		sudo rm -rf /home/ale/data/wordpress/*
-#		sudo rm -rf /home/ale/data/mariadb/*
-#		sudo rm -rf /home/ale/data/adminer/*
-		sudo rm -rf /home/amatta/data/wordpress/*
-		sudo rm -rf /home/amatta/data/mariadb/*
-		sudo rm -rf /home/amatta/data/adminer/*
+		sudo rm -rf /home/${USER}/data/wordpress/*
+		sudo rm -rf /home/${USER}/data/mariadb/*
+		sudo rm -rf /home/${USER}/data/adminer/*
 
 re :
 		sudo docker compose -f srcs/docker-compose.yml down -v --rmi all --remove-orphans
@@ -23,9 +20,6 @@ stop :
 
 start :
 		sudo docker compose -f srcs/docker-compose.yml start
-
-restart:
-		sudo docker compose -f srcs/docker-compose.yml restart
 
 ps :
 		sudo docker compose -f srcs/docker-compose.yml ps --all
@@ -53,9 +47,6 @@ redis-cli :
 
 create-dirs:
 		@echo "Creating directories"
-#		mkdir -p /home/ale/data/wordpress
-#		mkdir -p /home/ale/data/mariadb
-#		mkdir -p /home/ale/data/adminer
-		mkdir -p /home/amatta/data/wordpress
-		mkdir -p /home/amatta/data/mariadb
-		mkdir -p /home/amatta/data/adminer
+		mkdir -p /home/${USER}/data/wordpress
+		mkdir -p /home/${USER}/data/mariadb
+		mkdir -p /home/${USER}/data/adminer

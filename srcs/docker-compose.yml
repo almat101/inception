@@ -17,6 +17,7 @@ services:
     depends_on:
       - wordpress
       - adminer
+      - grafana
 
   mariadb:
     build:
@@ -64,6 +65,7 @@ services:
       - wordpress:/var/www/html
     networks:
       - inception
+
   ftp:
     build:
       context: requirements/bonus/ftp
@@ -106,6 +108,8 @@ services:
       - inception
     volumes:
       - adminer:/var/www/adminer
+    depends_on:
+      - mariadb
 
   prometheus:
     build:
@@ -152,17 +156,17 @@ volumes:
     driver : local  # Use the local volume driver
     driver_opts:
       type: none
-      device: /home/amatta/data/wordpress
+      device: /home/ale/data/wordpress
       o: bind
   mariadb:
     driver : local
     driver_opts:
       type: none
-      device: /home/amatta/data/mariadb
+      device: /home/ale/data/mariadb
       o: bind
   adminer:
     driver : local
     driver_opts:
       type: none
-      device: /home/amatta/data/adminer
+      device: /home/ale/data/adminer
       o: bind
