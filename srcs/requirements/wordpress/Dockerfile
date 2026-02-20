@@ -26,5 +26,7 @@ RUN mv wp-cli.phar /usr/local/bin/wp
 COPY tools/auto_config.sh /usr/local/bin/auto_config.sh
 RUN chmod +x /usr/local/bin/auto_config.sh
 
-CMD ["/usr/local/bin/auto_config.sh"]
+ENTRYPOINT ["/usr/local/bin/auto_config.sh"]
+
+CMD ["/usr/sbin/php-fpm7.4","-F"]
 

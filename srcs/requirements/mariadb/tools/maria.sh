@@ -31,4 +31,5 @@ mariadb-admin -u root -p"${MARIA_ROOT_PASSWORD}" shutdown
 
 #start the server in safe mode
 echo "Start the server in safe mode"
-exec mariadbd-safe
+
+exec "$@"

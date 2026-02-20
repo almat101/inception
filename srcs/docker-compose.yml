@@ -1,36 +1,32 @@
 services:
   nginx:
     build:
-      context: requirements/nginx  # Use the current directory as the build context
-      dockerfile: Dockerfile  # Use the Dockerfile in the current directory
+      context: requirements/nginx
+      dockerfile: Dockerfile
     container_name: nginx
-    image : nginx:1.0
     ports:
-      - "443:443" # Map port 443 on the host to port 443 in the container
-    env_file: ".env" # Load environment variables from a file
-    restart: on-failure # Restart the container if it exits with a non-zero code
+      - "443:443"
+    env_file: ".env"
+    restart: always
     networks:
-      - inception  # Connect the container to the inception network
+      - inception2
     volumes :
-      - wordpress:/var/www/html  # Mount the wordpress volume to the /var/www/html directory in the container
-      - adminer:/var/www/adminer  # Mount the adminer volume to the /var/www/html directory in the container
+      - wordpress:/var/www/html
+      # - adminer:/var/www/adminer
     depends_on:
       - wordpress
-      - adminer
-      - grafana
+      # - adminer
+      # - grafana
 
   mariadb:
     build:
       context: requirements/mariadb
       dockerfile: Dockerfile
     container_name: mariadb
-    image: mariadb:1.0
-    expose:
-      - "3306" # Expose port 3306 this allows containers to communicate with each other
     env_file: ".env"
-    restart: unless-stopped # Restart the container unless it was explicitly stopped
+    restart: always
     networks:
-      - inception
+      - inception2
     volumes:
       - mariadb:/var/lib/mysql
 
@@ -39,134 +35,124 @@ services:
       context: requirements/wordpress
       dockerfile: Dockerfile
     container_name: wordpress
-    image: wordpress:1.0
-    expose:
-      - "9000" # Expose port 9000 this allows containers to communicate with each other
     env_file: ".env"
-    restart: on-failure
+    restart: always
     networks:
-      - inception
+      - inception2
     volumes:
       - wordpress:/var/www/html
     depends_on:
       - mariadb
-      - redis
+      # - redis
 
-  redis:
-    build:
-      context: requirements/bonus/redis
-      dockerfile: Dockerfile
-    container_name: redis
-    image: redis:1.0
-    expose:
-      - "6379"
-    restart: on-failure
-    volumes:
-      - wordpress:/var/www/html
-    networks:
-      - inception
+  # redis:
+  #   build:
+  #     context: requirements/bonus/redis
+  #     dockerfile: Dockerfile
+  #   container_name: redis
+  #   expose:
+  #     - "6379"
+  #   restart: on-failure
+  #   volumes:
+  #     - wordpress:/var/www/html
+  #   networks:
+  #     - inception
 
-  ftp:
-    build:
-      context: requirements/bonus/ftp
-      dockerfile: Dockerfile
-    container_name: ftp
-    image: ftp:1.0
-    env_file: ".env"
-    depends_on:
-      - wordpress
-    ports:
-      - "21:21"
-      - "20:20"
-      - 21100-21110:21100-21110
-    restart: on-failure
-    volumes:
-      - wordpress:/var/www/html
-    networks:
-      - inception
+  # ftp:
+  #   build:
+  #     context: requirements/bonus/ftp
+  #     dockerfile: Dockerfile
+  #   container_name: ftp
+  #   env_file: ".env"
+  #   depends_on:
+  #     - wordpress
+  #   ports:
+  #     - "21:21"
+  #     - "20:20"
+  #     - 21100-21110:21100-21110
+  #   restart: on-failure
+  #   volumes:
+  #     - wordpress:/var/www/html
+  #   networks:
+  #     - inception
 
-  hugo:
-    build:
-      context: requirements/bonus/hugo
-      dockerfile: Dockerfile
-    container_name: hugo
-    image: hugo:1.0
-    restart: always
-    networks:
-      - inception
+  # hugo:
+  #   build:
+  #     context: requirements/bonus/hugo
+  #     dockerfile: Dockerfile
+  #   container_name: hugo
+  #   restart: always
+  #   networks:
+  #     - inception
 
-  adminer:
-    build:
-      context: requirements/bonus/adminer
-      dockerfile: Dockerfile
-    container_name: adminer
-    image: adminer:1.0
-    restart: always
-    expose:
-      - "9001"
-    networks:
-      - inception
-    volumes:
-      - adminer:/var/www/adminer
-    depends_on:
-      - mariadb
+  # adminer:
+  #   build:
+  #     context: requirements/bonus/adminer
+  #     dockerfile: Dockerfile
+  #   container_name: adminer
+  #   restart: always
+  #   expose:
+  #     - "9001"
+  #   networks:
+  #     - inception
+  #   volumes:
+  #     - adminer:/var/www/adminer
+  #   depends_on:
+  #     - mariadb
 
-  prometheus:
-    build:
-      context: requirements/bonus/prometheus
-      dockerfile: Dockerfile
-    container_name: prometheus
-    image: prometheus:1.0
-    restart: always
-    ports:
-      - "9090:9090"
-    networks:
-      - inception
+  # prometheus:
+  #   build:
+  #     context: requirements/bonus/prometheus
+  #     dockerfile: Dockerfile
+  #   container_name: prometheus
+  #   restart: always
+  #   ports:
+  #     - "9090:9090"
+  #   networks:
+  #     - inception
 
-  node-exporter:
-    build:
-      context: requirements/bonus/node-exporter
-      dockerfile: Dockerfile
-    container_name: node-exporter
-    image: node-exporter:1.0
-    restart: always
-    ports:
-      - "9100:9100"
-    networks:
-      - inception
+  # node-exporter:
+  #   build:
+  #     context: requirements/bonus/node-exporter
+  #     dockerfile: Dockerfile
+  #   container_name: node-exporter
+  #   restart: always
+  #   ports:
+  #     - "9100:9100"
+  #   networks:
+  #     - inception
 
-  grafana:
-    build:
-      context: requirements/bonus/grafana
-      dockerfile: Dockerfile
-    container_name: grafana
-    image: grafana:1.0
-    restart: always
-    ports:
-      - "3000:3000"
-    networks:
-      - inception
+  # grafana:
+  #   build:
+  #     context: requirements/bonus/grafana
+  #     dockerfile: Dockerfile
+  #   container_name: grafana
+  #   restart: always
+  #   ports:
+  #     - "3000:3000"
+  #   networks:
+  #     - inception
 
 networks:
-  inception:
+  inception2:
     driver: bridge
 
 volumes:
   wordpress:
-    driver : local  # Use the local volume driver
+    driver : local
     driver_opts:
       type: none
-      device: /home/amatta/data/wordpress
+      device: /home/ale/data/wordpress
       o: bind
   mariadb:
     driver : local
     driver_opts:
       type: none
-      device: /home/amatta/data/mariadb
+      device: /home/ale/data/mariadb
       o: bind
-  adminer:
-    driver : local
-    driver_opts:
-      type: none
-      device: /home/amatta/data/adminer
-      o: bind
+  # adminer:
+  #   driver : local
+  #   driver_opts:
+  #     type: none
+  #     device: /home/amatta/data/adminer
+  #     o: bind

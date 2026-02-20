@@ -77,6 +77,8 @@ if ! test -f "/var/www/html/wp-config.php"; then
 else
 	echo "wp-config.php already exist!"
 fi
+
 #execute the cgi
 echo "Execute the cgi"
-/usr/sbin/php-fpm7.4 -F
+
+exec "$@"

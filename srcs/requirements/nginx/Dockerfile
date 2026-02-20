@@ -1,24 +1,15 @@
-FROM debian:bullseye
+FROM alpine:3.22
 
-RUN apt-get update
-RUN apt-get upgrade -y
-RUN apt-get install -y nginx sudo vim openssl
+RUN apk update && apk add nginx openssl curl iproute2 vim
 
-RUN rm -rf /etc/nginx/nginx.conf
-RUN rm -rf /etc/nginx/sites-enabled/*
-RUN rm -rf /etc/nginx/sites-available/*
 RUN mkdir -p /etc/nginx/ssl
 
-COPY conf/nginx.conf /etc/nginx/nginx.conf
+COPY conf /etc/nginx
 
-#this is crucial to avoid 403 on ngnix
-RUN chown -R www-data:www-data /var/www/html
-
-COPY tools/script_n.sh /usr/local/bin/script_n.sh
+COPY tools /usr/local/bin
 
 RUN chmod +x /usr/local/bin/script_n.sh
 
-#give the right permissions to the html folder
-RUN chmod 755 /var/www/html
+ENTRYPOINT ["script_n.sh"]
 
-CMD ["/usr/local/bin/script_n.sh"]
+CMD ["nginx", "-g", "daemon off;"]

@@ -10,4 +10,6 @@ COPY tools/maria.sh /usr/local/bin/maria.sh
 
 RUN chmod +x /usr/local/bin/maria.sh
 
-CMD ["/usr/local/bin/maria.sh"]
+ENTRYPOINT ["/usr/local/bin/maria.sh"]
+
+CMD ["mysqld"]
