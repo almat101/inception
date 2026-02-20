@@ -8,15 +8,22 @@ services:
       - "443:443"
     env_file: ".env"
     restart: always
-    networks:
-      - inception2
     volumes :
       - wordpress:/var/www/html
       # - adminer:/var/www/adminer
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f -s -k https://127.0.0.1/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
     depends_on:
-      - wordpress
+      wordpress:
+        condition: service_healthy
       # - adminer
       # - grafana
+    networks:
+      - inception2
 
   mariadb:
     build:
@@ -25,10 +32,15 @@ services:
     container_name: mariadb
     env_file: ".env"
     restart: always
-    networks:
-      - inception2
+    healthcheck:
+      test: ["CMD", "mariadb-admin", "ping", "--password=${MARIA_ROOT_PASSWORD}"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
     volumes:
       - mariadb:/var/lib/mysql
+    networks:
+      - inception2
 
   wordpress:
     build:
@@ -37,13 +49,19 @@ services:
     container_name: wordpress
     env_file: ".env"
     restart: always
-    networks:
-      - inception2
     volumes:
       - wordpress:/var/www/html
     depends_on:
-      - mariadb
+      mariadb:
+        condition: service_healthy
       # - redis
+    healthcheck:
+      test: ["CMD", "sh", "-c", "nc -z localhost 9000 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    networks:
+      - inception2
 
   # redis:
   #   build:

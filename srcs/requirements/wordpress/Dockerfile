@@ -2,7 +2,7 @@ FROM debian:bullseye
 
 RUN apt-get update
 RUN apt-get upgrade -y
-RUN apt-get install -y wget vim php7.4 php7.4-fpm php7.4-mysql mariadb-client curl git unzip
+RUN apt-get install -y wget vim php7.4 php7.4-fpm php7.4-mysql mariadb-client git unzip netcat
 
 
 # Download and extract WordPress in var/www/html

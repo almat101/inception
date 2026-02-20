@@ -1,10 +1,10 @@
 #!/bin/bash
-sleep 2
+# sleep 2
 
 #start mariadbd-safe in the background
 mariadbd-safe &
 
-sleep 10
+# sleep 10
 # Create the table
 echo "Create the table"
 mariadb -u root -p"${MARIA_ROOT_PASSWORD}" -e "CREATE DATABASE IF NOT EXISTS \`${MARIA_DB_NAME}\`;"
