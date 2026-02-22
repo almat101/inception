@@ -28,4 +28,4 @@ COPY tools/adminer.sh /usr/local/bin/adminer.sh
 RUN chmod +x /usr/local/bin/adminer.sh
 
 # start php-fpm in the foreground
-CMD ["/usr/local/bin/adminer.sh"]
+CMD ["/usr/sbin/php-fpm7.4","-F"]

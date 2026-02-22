@@ -1,8 +1,13 @@
 #!/bin/bash
 # sleep 2
 
-#start mariadbd-safe in the background
 mariadbd-safe &
+
+echo "Waiting for MariaDB to be ready..."
+until mysqladmin ping --silent; do
+	sleep 1
+done
+echo "MariaDB is ready."
 
 # sleep 10
 # Create the table

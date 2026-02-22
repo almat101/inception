@@ -20,7 +20,8 @@ services:
     depends_on:
       wordpress:
         condition: service_healthy
-      # - adminer
+      adminer: 
+        condition: service_started
       # - grafana
     networks:
       - inception2
@@ -103,20 +104,19 @@ services:
   #   networks:
   #     - inception
 
-  # adminer:
-  #   build:
-  #     context: requirements/bonus/adminer
-  #     dockerfile: Dockerfile
-  #   container_name: adminer
-  #   restart: always
-  #   expose:
-  #     - "9001"
-  #   networks:
-  #     - inception
-  #   volumes:
-  #     - adminer:/var/www/adminer
-  #   depends_on:
-  #     - mariadb
+  adminer:
+    build:
+      context: requirements/bonus/adminer
+      dockerfile: Dockerfile
+    container_name: adminer
+    restart: always
+    volumes:
+      - adminer:/var/www/adminer
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    networks:
+      - inception2
 
   # prometheus:
   #   build:
@@ -168,9 +168,9 @@ volumes:
       type: none
       device: /home/ale/data/mariadb
       o: bind
-  # adminer:
-  #   driver : local
-  #   driver_opts:
-  #     type: none
-  #     device: /home/amatta/data/adminer
-  #     o: bind
+  adminer:
+    driver : local
+    driver_opts:
+      type: none
+      device: /home/ale/data/adminer
+      o: bind
